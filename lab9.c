@@ -1,4 +1,4 @@
-/* Author(s): Please put your student name(s).
+/* Author(s): Jorge Tadeo
  *
  * This is lab9.c the csc60mshell
  * This program serves as a skeleton for doing labs 9, 10, 11.
@@ -43,13 +43,13 @@ int main(void)
     /* Loop forever to wait and process commands */
     while (TRUE) {
 	/* Print your shell name: csc60mshell (m for mini shell) */
-	printf("FillInThisSpace> ");
+	printf("csc60mshell > ");
 
 	/* Read the command line */
 	fgets(cmdline, MAXLINE, stdin);
 
 	/* Call parseline to build argc/argv */
-
+    argc = parseline(&cmdline,&argv); 
 
 	/* If user hits enter key without a command, continue to loop */
 	/* again at the beginning */
