@@ -39,6 +39,7 @@ int main(void)
     int argc;
     int status;
     pid_t pid;
+    int loop;
 
     /* Loop forever to wait and process commands */
     while (TRUE) {
@@ -49,8 +50,14 @@ int main(void)
 	fgets(cmdline, MAXLINE, stdin);
 
 	/* Call parseline to build argc/argv */
-    argc = parseline(&cmdline,&argv); 
+    argc = parseline(cmdline, argv); 
 
+    /* Print out argc and argv list */
+    for(loop = 0; loop < argc ; loop++){
+            
+            printf("Argv %i = %s\n",loop,argv[loop]);
+             
+           //  }
 	/* If user hits enter key without a command, continue to loop */
 	/* again at the beginning */
 	/*  Hint: if argc is zero, no command declared */
