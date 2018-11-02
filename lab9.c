@@ -50,13 +50,19 @@ int main(void)
       fgets(cmdline, MAXLINE, stdin);
 
       /* Call parseline to build argc/argv */
-      /* argc = parseline(cmdline, argv); */
+      argc = parseline(cmdline, argv);
 
-        /* Print out argc and argv list */
-        /* for(loop = 0; loop < argc ; loop++){ */
-          /* printf("Argv %i = %s\n",loop,argv[loop]); */
+      /* Print out argc and argv list */
+      for(loop = 0; loop < argc ; loop++)
+        printf("Argv %i = %s\n",loop,argv[loop]);
 
-           //}
+      int ret = strcmp(cmdline, "exit");
+
+      if(ret > 0) {
+
+      } else {
+        return EXIT_SUCCESS;
+
   /* If user hits enter key without a command, continue to loop */
   /* again at the beginning */
   /*  Hint: if argc is zero, no command declared */
@@ -64,31 +70,6 @@ int main(void)
 
   /* Handle build-in command: exit, pwd, or cd  */
   /* Put the rest of your code here */
-
-
-//.......................IGNORE........................
-//	/* Else, fork off a process */
-//      else {
-//      pid = fork();
-//          switch(pid)
-//          {
-//        case -1:
-//        perror("Shell Program fork error");
-//              exit(EXIT_FAILURE);
-//      case 0:
-//        /* I am child process. I will execute the command, */
-//        /* and call: execvp */
-//        process_input(argc, argv);
-//        break;
-//      default:
-//        /* I am parent process */
-//        if (wait(&status) == -1)
-//          perror("Parent Process error");
-//        else
-//        printf("Child returned status: %d\n",status);
-//        break;
-//      }   /* end of the switch */
-//...end of the IGNORE above.........................
     }	/* end of the if-else-if */
   }		/* end of the while */
 }     /* end of main */
@@ -134,3 +115,28 @@ int parseline(char *cmdline, char **argv)
 
 
 /* ----------------------------------------------------------------- */
+
+
+//.......................IGNORE........................
+//	/* Else, fork off a process */
+//      else {
+//      pid = fork();
+//          switch(pid)
+//          {
+//        case -1:
+//        perror("Shell Program fork error");
+//              exit(EXIT_FAILURE);
+//      case 0:
+//        /* I am child process. I will execute the command, */
+//        /* and call: execvp */
+//        process_input(argc, argv);
+//        break;
+//      default:
+//        /* I am parent process */
+//        if (wait(&status) == -1)
+//          perror("Parent Process error");
+//        else
+//        printf("Child returned status: %d\n",status);
+//        break;
+//      }   /* end of the switch */
+//...end of the IGNORE above.........................
