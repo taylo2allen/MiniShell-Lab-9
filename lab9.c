@@ -54,14 +54,16 @@ int main(void)
 
       /* Print out argc and argv list */
       for(loop = 0; loop < argc ; loop++)
-        printf("Argv %i = %s\n",loop,argv[loop]);
+        printf("Argc %i = %s\n",loop,argv[loop]);
 
-      int ret = strcmp(cmdline, "exit");
-
-      if(ret > 0) {
-
-      } else {
+      /* Check for exit, pwd, or cd */
+      if(strcmp(argv[0], "exit") ==  0){
         return EXIT_SUCCESS;
+      } else if (strcmp(argv[0], "pwd") == 0){
+        printf("pwd command executed.\n");
+      } else if (strcmp(argv[0], "cd") == 0){
+        printf("cd command executed.\n");
+      }
 
   /* If user hits enter key without a command, continue to loop */
   /* again at the beginning */
@@ -70,7 +72,7 @@ int main(void)
 
   /* Handle build-in command: exit, pwd, or cd  */
   /* Put the rest of your code here */
-    }	/* end of the if-else-if */
+    /* }	/\* end of the if-else-if *\/ */
   }		/* end of the while */
 }     /* end of main */
 
