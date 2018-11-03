@@ -18,7 +18,7 @@
 
 #define MAXLINE 80
 #define MAXARGS 20
-#define MAX_PATH_LENGTH 50
+#define MAX_PATH_LENGTH 5000
 #define TRUE 1
 
 /* function prototypes */
@@ -35,6 +35,7 @@ int parseline(char *cmdline, char **argv);
 int main(void){
   char cmdline[MAXLINE];
   char *argv[MAXARGS];
+  char path[MAX_PATH_LENGTH];
   int argc;
   int status;
   pid_t pid;
@@ -60,7 +61,7 @@ int main(void){
       return EXIT_SUCCESS;
     } else if (strcmp(argv[0], "pwd") == 0){
       /* printf("pwd command executed.\n"); */
-
+      (getcwd(path, MAX_PATH_LENGTH)) ? printf("%s\n", path) : printf("Cannot Print The Current Working Directory.\n");
     } else if (strcmp(argv[0], "cd") == 0){
       /* printf("cd command executed.\n"); */
 
