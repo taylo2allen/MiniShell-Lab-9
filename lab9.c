@@ -32,44 +32,68 @@ int parseline(char *cmdline, char **argv);
 /* ----------------------------------------------------------------- */
 /*                  The main program starts here                     */
 /* ----------------------------------------------------------------- */
-int main(void)
-{
-    char cmdline[MAXLINE];
-    char *argv[MAXARGS];
-    int argc;
-    int status;
-    pid_t pid;
-    int loop;
+int main(void){
+  char cmdline[MAXLINE];
+  char *argv[MAXARGS];
+  int argc;
+  int status;
+  pid_t pid;
+  int loop;
 
-    /* Loop forever to wait and process commands */
-    while (TRUE) {
-      /* Print your shell name: csc60mshell (m for mini shell) */
-      printf("csc60mshell > ");
+  /* Loop forever to wait and process commands */
+  while (TRUE){
+    /* Print your shell name: csc60mshell (m for mini shell) */
+    printf("csc60mshell > ");
 
-      /* Read the command line */
-      fgets(cmdline, MAXLINE, stdin);
+    /* Read the command line */
+    fgets(cmdline, MAXLINE, stdin);
 
-      /* Call parseline to build argc/argv */
-      argc = parseline(cmdline, argv);
+    /* Call parseline to build argc/argv */
+    argc = parseline(cmdline, argv);
 
-      /* Print out argc and argv list */
-      for(loop = 0; loop < argc ; loop++)
-        printf("Argv %i = %s\n",loop,argv[loop]);
+    /* Print out argc and argv list */
+    for(loop = 0; loop < argc ; loop++)
+      printf("Argc %i = %s\n",loop,argv[loop]);
 
-      int ret = strcmp(cmdline, "exit");
+    /* Check for exit, pwd, or cd */
+    if(strcmp(argv[0], "exit") ==  0){
+      return EXIT_SUCCESS;
+    } else if (strcmp(argv[0], "pwd") == 0){
+      printf("pwd command executed.\n");
+    } else if (strcmp(argv[0], "cd") == 0){
+      printf("cd command executed.\n");
 
-      if(ret > 0) {
+    /* If user hits enter key without a command, continue to loop */
+    /* again at the beginning */
+    /*  Hint: if argc is zero, no command declared */
+    /*  Hint: look up for the keyword "continue" in C */
 
-      } else {
-        return EXIT_SUCCESS;
+    /* Handle build-in command: exit, pwd, or cd  */
+    /* Put the rest of your code here */
 
-  /* If user hits enter key without a command, continue to loop */
-  /* again at the beginning */
-  /*  Hint: if argc is zero, no command declared */
-  /*  Hint: look up for the keyword "continue" in C */
-
-  /* Handle build-in command: exit, pwd, or cd  */
-  /* Put the rest of your code here */
+    //.......................IGNORE........................
+    //	/* Else, fork off a process */
+    //      else {
+    //      pid = fork();
+    //          switch(pid)
+    //          {
+    //        case -1:
+    //        perror("Shell Program fork error");
+    //              exit(EXIT_FAILURE);
+    //      case 0:
+    //        /* I am child process. I will execute the command, */
+    //        /* and call: execvp */
+    //        process_input(argc, argv);
+    //        break;
+    //      default:
+    //        /* I am parent process */
+    //        if (wait(&status) == -1)
+    //          perror("Parent Process error");
+    //        else
+    //        printf("Child returned status: %d\n",status);
+    //        break;
+    //      }   /* end of the switch */
+    //...end of the IGNORE above.........................
     }	/* end of the if-else-if */
   }		/* end of the while */
 }     /* end of main */
@@ -79,19 +103,19 @@ int main(void)
 /* ----------------------------------------------------------------- */
 /* parse input line into argc/argv format */
 
-int parseline(char *cmdline, char **argv)
-{
-    int count = 0;
-    char *separator = " \n\t"; /* Includes space, Enter, Tab */
+int parseline(char *cmdline, char **argv){
+  int count = 0;
+  char *separator = " \n\t"; /* Includes space, Enter, Tab */
 
-    /* strtok searches for the characters listed in separator */
-    argv[count] = strtok(cmdline, separator);
+  /* strtok searches for the characters listed in separator */
+  argv[count] = strtok(cmdline, separator);
 
-    while ((argv[count] != NULL) && (count+1 < MAXARGS))
-      argv[++count] = strtok((char *) 0, separator);
+  while ((argv[count] != NULL) && (count+1 < MAXARGS))
+    argv[++count] = strtok((char *) 0, separator);
 
-    return count;  //This becomes "argc" back in main.
+  return count;  //This becomes "argc" back in main.
 }
+
 /* ----------------------------------------------------------------- */
 /*                  process_input                                    */
 /* ----------------------------------------------------------------- */
@@ -113,30 +137,4 @@ int parseline(char *cmdline, char **argv)
 //void handle_redir(int count, char *argv[])
 /* ----------------------------------------------------------------- */
 
-
 /* ----------------------------------------------------------------- */
-
-
-//.......................IGNORE........................
-//	/* Else, fork off a process */
-//      else {
-//      pid = fork();
-//          switch(pid)
-//          {
-//        case -1:
-//        perror("Shell Program fork error");
-//              exit(EXIT_FAILURE);
-//      case 0:
-//        /* I am child process. I will execute the command, */
-//        /* and call: execvp */
-//        process_input(argc, argv);
-//        break;
-//      default:
-//        /* I am parent process */
-//        if (wait(&status) == -1)
-//          perror("Parent Process error");
-//        else
-//        printf("Child returned status: %d\n",status);
-//        break;
-//      }   /* end of the switch */
-//...end of the IGNORE above.........................
