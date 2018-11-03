@@ -36,6 +36,7 @@ int main(void){
   char cmdline[MAXLINE];
   char *argv[MAXARGS];
   char path[MAX_PATH_LENGTH];
+  char dir[MAX_PATH_LENGTH];
   int argc;
   int status;
   pid_t pid;
@@ -62,9 +63,13 @@ int main(void){
     } else if (strcmp(argv[0], "pwd") == 0){
       /* printf("pwd command executed.\n"); */
       (getcwd(path, MAX_PATH_LENGTH)) ? printf("%s\n", path) : printf("Cannot Print The Current Working Directory.\n");
+    } else if (strcmp(argv[0], "cd") == 0 && argv[1] == NULL){
+      printf("cd by itself\n");
+      chdir(getenv("HOME"));
     } else if (strcmp(argv[0], "cd") == 0){
-      /* printf("cd command executed.\n"); */
-
+      printf("cd with a command\n");
+      strcpy(argv[0], dir);
+      chdir(getenv(argv[1]));
 
     /* If user hits enter key without a command, continue to loop */
     /* again at the beginning */
