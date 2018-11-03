@@ -55,13 +55,25 @@ int main(void){
     for(loop = 0; loop < argc ; loop++)
       printf("Argc %i = %s\n",loop,argv[loop]);
 
+    /* Check if user has input nothing */
+    if(argc == 0){
+    
+      printf("No command declared\n");
+      continue;
+            
+    }    
     /* Check for exit, pwd, or cd */
-    if(strcmp(argv[0], "exit") ==  0){
+      else if(strcmp(argv[0], "exit") ==  0){
+     
       return EXIT_SUCCESS;
+
     } else if (strcmp(argv[0], "pwd") == 0){
+     
       printf("pwd command executed.\n");
+
     } else if (strcmp(argv[0], "cd") == 0){
-      printf("cd command executed.\n");
+
+      printf("cd command executed.\n"); 
 
     /* If user hits enter key without a command, continue to loop */
     /* again at the beginning */
