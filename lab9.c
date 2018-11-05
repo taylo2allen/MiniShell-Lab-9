@@ -62,10 +62,10 @@ int main(void){
     if(argc == 0){
       continue;
     }
-    
+
     /* Check for exit, pwd, or cd */
       else if(strcmp(argv[0], "exit") ==  0){
-     
+
       return EXIT_SUCCESS;
 
     } else if (strcmp(argv[0], "pwd") == 0){                   // if argv[0] equals pwd print the current working dir
