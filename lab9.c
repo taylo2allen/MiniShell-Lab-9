@@ -18,7 +18,7 @@
 
 #define MAXLINE 80
 #define MAXARGS 20
-#define MAX_PATH_LENGTH 50
+#define MAX_PATH_LENGTH 5000
 #define TRUE 1
 
 /* function prototypes */
@@ -32,16 +32,19 @@ int parseline(char *cmdline, char **argv);
 /* ----------------------------------------------------------------- */
 /*                  The main program starts here                     */
 /* ----------------------------------------------------------------- */
+
 int main(void){
   char cmdline[MAXLINE];
   char *argv[MAXARGS];
+  char path[MAX_PATH_LENGTH];
+  char dir[MAX_PATH_LENGTH];
   int argc;
   int status;
   pid_t pid;
   int loop;
 
   /* Loop forever to wait and process commands */
-  while (TRUE){
+  do{
     /* Print your shell name: csc60mshell (m for mini shell) */
     printf("csc60mshell > ");
 
@@ -55,25 +58,26 @@ int main(void){
     for(loop = 0; loop < argc ; loop++)
       printf("Argc %i = %s\n",loop,argv[loop]);
 
-    /* Check if user has input nothing */
+    /* if user passes no args return shell prompt */
     if(argc == 0){
-    
-      printf("No command declared\n");
       continue;
-            
-    }    
+    }
+    
     /* Check for exit, pwd, or cd */
       else if(strcmp(argv[0], "exit") ==  0){
      
       return EXIT_SUCCESS;
 
-    } else if (strcmp(argv[0], "pwd") == 0){
-     
-      printf("pwd command executed.\n");
-
-    } else if (strcmp(argv[0], "cd") == 0){
-
-      printf("cd command executed.\n"); 
+    } else if (strcmp(argv[0], "pwd") == 0){                   // if argv[0] equals pwd print the current working dir
+      (getcwd(path, MAX_PATH_LENGTH)) ? printf("%s\n", path) : printf("Cannot Print The Current Working Directory.\n");
+      continue;
+    } else if (strcmp(argv[0], "cd") == 0 && argv[1] == NULL){ // if argv[0] equals cd without a second arg change dir to HOME
+      chdir(getenv("HOME"));
+      continue;
+    } else if (strcmp(argv[0], "cd") == 0){                    // if cd has a second arg change dir to the path specified
+      int dirErr = chdir(argv[1]);
+      (dirErr < 0) ? perror("Error") : chdir(argv[1]);
+      continue;
 
     /* If user hits enter key without a command, continue to loop */
     /* again at the beginning */
@@ -107,7 +111,7 @@ int main(void){
     //      }   /* end of the switch */
     //...end of the IGNORE above.........................
     }	/* end of the if-else-if */
-  }		/* end of the while */
+  }	while (TRUE); /* end of the while */
 }     /* end of main */
 
 /* ----------------------------------------------------------------- */
