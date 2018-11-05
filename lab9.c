@@ -32,6 +32,7 @@ int parseline(char *cmdline, char **argv);
 /* ----------------------------------------------------------------- */
 /*                  The main program starts here                     */
 /* ----------------------------------------------------------------- */
+
 int main(void){
   char cmdline[MAXLINE];
   char *argv[MAXARGS];
@@ -43,7 +44,7 @@ int main(void){
   int loop;
 
   /* Loop forever to wait and process commands */
-  while (TRUE){
+  do{
     /* Print your shell name: csc60mshell (m for mini shell) */
     printf("csc60mshell > ");
 
@@ -57,19 +58,24 @@ int main(void){
     for(loop = 0; loop < argc ; loop++)
       printf("Argc %i = %s\n",loop,argv[loop]);
 
+    /* if user passes no args return shell prompt */
+    if(argc == 0){
+      continue;
+    }
+
     /* Check for exit, pwd, or cd */
     if(strcmp(argv[0], "exit") ==  0){
       return EXIT_SUCCESS;
-    } else if (strcmp(argv[0], "pwd") == 0){
-      /* printf("pwd command executed.\n"); */
+    } else if (strcmp(argv[0], "pwd") == 0){                   // if argv[0] equals pwd print the current working dir
       (getcwd(path, MAX_PATH_LENGTH)) ? printf("%s\n", path) : printf("Cannot Print The Current Working Directory.\n");
-    } else if (strcmp(argv[0], "cd") == 0 && argv[1] == NULL){
-      printf("cd by itself\n");
+      continue;
+    } else if (strcmp(argv[0], "cd") == 0 && argv[1] == NULL){ // if argv[0] equals cd without a second arg change dir to HOME
       chdir(getenv("HOME"));
-    } else if (strcmp(argv[0], "cd") == 0){
-      printf("cd with a command\n");
-      strcpy(argv[0], dir);
-      chdir(getenv(argv[1]));
+      continue;
+    } else if (strcmp(argv[0], "cd") == 0){                    // if cd has a second arg change dir to the path specified
+      int dirErr = chdir(argv[1]);
+      (dirErr < 0) ? perror("Error") : chdir(argv[1]);
+      continue;
 
     /* If user hits enter key without a command, continue to loop */
     /* again at the beginning */
@@ -103,7 +109,7 @@ int main(void){
     //      }   /* end of the switch */
     //...end of the IGNORE above.........................
     }	/* end of the if-else-if */
-  }		/* end of the while */
+  }	while (TRUE); /* end of the while */
 }     /* end of main */
 
 /* ----------------------------------------------------------------- */
