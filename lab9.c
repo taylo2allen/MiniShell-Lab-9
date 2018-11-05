@@ -62,10 +62,12 @@ int main(void){
     if(argc == 0){
       continue;
     }
-
+    
     /* Check for exit, pwd, or cd */
-    if(strcmp(argv[0], "exit") ==  0){
+      else if(strcmp(argv[0], "exit") ==  0){
+     
       return EXIT_SUCCESS;
+
     } else if (strcmp(argv[0], "pwd") == 0){                   // if argv[0] equals pwd print the current working dir
       (getcwd(path, MAX_PATH_LENGTH)) ? printf("%s\n", path) : printf("Cannot Print The Current Working Directory.\n");
       continue;
