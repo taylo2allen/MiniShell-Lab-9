@@ -1,0 +1,40 @@
+Script started on Mon 05 Nov 2018 11:53:39 AM PST
+Note: $DISPLAY is set to  for X windows.
+
+    *** Notice: This is an ECS IT resource, intended to be used for purposes
+        related to the educational activities of faculty, staff and students
+        of California State University Sacramento. Any other use is a
+        violation of University and College policy.
+
+
+[allent@atoz MiniShell-Lab-9]> cat names.txt
+Author(s): Jorge Tadeo & Taylor Allen
+[allent@atoz MiniShell-Lab-9]> ao[K.out
+csc60mshell > 
+csc60mshell >  
+csc60mshell > pwd
+Argc 0 = pwd
+/gaia/class/student/allent/School/CSC-060/Lab-9/MiniShell-Lab-9
+csc60mshell > cd ..
+Argc 0 = cd
+Argc 1 = ..
+csc60mshell > pwd
+Argc 0 = pwd
+/gaia/class/student/allent/School/CSC-060
+csc60mshell > cd Lab-9
+Argc 0 = cd
+Argc 1 = Lab-9
+csc60mshell > pwd
+Argc 0 = pwd
+/gaia/class/student/allent/School/CSC-060/Lab-9
+csc60mshell > cd
+Argc 0 = cd
+csc60mshell > pwd
+Argc 0 = pwd
+/gaia/class/student/allent
+csc60mshell > exit
+Argc 0 = exit
+[allent@atoz MiniShell-Lab-9]> exit
+exit
+
+Script done on Mon 05 Nov 2018 11:56:26 AM PST
