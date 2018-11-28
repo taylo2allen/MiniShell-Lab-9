@@ -37,7 +37,6 @@ int main(void){
   char cmdline[MAXLINE];
   char *argv[MAXARGS];
   char path[MAX_PATH_LENGTH];
-  char dir[MAX_PATH_LENGTH];
   int argc;
   int status;
   pid_t pid;
@@ -67,15 +66,21 @@ int main(void){
       else if(strcmp(argv[0], "exit") ==  0){
         return EXIT_SUCCESS;
     } else if (strcmp(argv[0], "pwd") == 0){                   // if argv[0] equals pwd print the current working dir
-      (getcwd(path, MAX_PATH_LENGTH)) ? printf("%s\n", path) : printf("Cannot Print The Current Working Directory.\n");
-      continue;
-    } else if (strcmp(argv[0], "cd") == 0 && argv[1] == NULL){ // if argv[0] equals cd without a second arg change dir to HOME
-      chdir(getenv("HOME"));
-      continue;
+        (getcwd(path, MAX_PATH_LENGTH)) ? printf("%s\n", path) : printf("Cannot Print The Current Working Directory.\n");
+        continue;
     } else if (strcmp(argv[0], "cd") == 0){                    // if cd has a second arg change dir to the path specified
-      int dirErr = chdir(argv[1]);
-      (dirErr < 0) ? perror("Error") : chdir(argv[1]);
-      continue;
+        /* char dir[MAX_PATH_LENGTH]; */
+        if(argc == 1){
+          chdir(getenv("HOME"));
+          continue;
+        } else{
+          if (chdir(argv[1]) == -1){
+            int dirErr = chdir(argv[1]);
+            (dirErr < 0) ? perror("Error") : chdir(argv[1]);
+            continue;
+          }
+        }
+
     } else{
         fprintf(stderr, "Error: Unknown command.\n");
 
